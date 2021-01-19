@@ -1,0 +1,76 @@
+<div id="id01" class="">
+
+<div class="modal-content">
+    <div class="container">
+
+        <div>
+            <h2 id="page-heading">
+                <span >Liste des Produits</span>
+                <button class="btn btn-primary float-right " [routerLink]="['/produit/new']">
+                    <span >
+                    Nouveau Produit
+                    </span>
+                </button>
+            </h2>
+
+            <br/>
+            <div class="table-responsive" *ngIf="listProduits">
+                <table class="table table-striped">
+                    <thead>
+                    <tr  [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th><span>ID</span> </th>
+                    <th><span>Désignation</span> </th>
+                    <th><span>Marque</span> </th>
+                    <th><span>Modèle</span> </th>
+                    <th><span>Configuration</span> </th>
+                    <th><span>Prix Unitaire</span> </th>
+                    <th><span>Quantite</span> </th>
+                    <th><span>Categorie</span> </th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let produit of listProduits">
+                        <td><a [routerLink]="['/produit', produit.idProduit, 'view' ]">{{produit.idProduit}}</a></td>
+                        <td>{{produit.desigProduit}}</td>
+                        <td>{{produit.marqueProduit}}</td>
+                        <td>{{produit.modeleProduit}}</td>
+                        <td>{{produit.configProduit}}</td>
+                        <td>{{produit.puProduit}}</td>
+                        <td>{{produit.qteProduit}}</td>
+                        <td>
+                            <div *ngIf="produit.categorie">
+                                <a [routerLink]="['../categorie', produit.categorie?.idCateg, 'view' ]" >{{produit.categorie?.idCateg}}</a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/produit', produit.idProduit, 'view' ]"
+                                        class="btn btn-info btn-sm">
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/produit', produit.idProduit, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', 'produit', { outlets: { popup: produit.idProduit + '/delete'} }]"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="listProduits && listProduits.length">
+                <div class="row justify-content-center">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+		<form role="form" name="produitForm" novalidate (ngSubmit)="saveOrUpdate()" #produitForm="ngForm">
+			<div class="form-group" [hidden]="produit.idProduit">
+				<h1>Nouveau Produit</h1>
+				<p>Veuillez saisir les données du produit</p>
+				<hr>
+			</div>
+			<div class="form-group" [hidden]="!produit.idProduit">
+				<h1>Modifier Produit</h1>
+				<p>Veuillez saisir les données du produit</p>
+				<hr>
+			</div>
+			
+			<div class="form-group" [hidden]="!produit.idProduit">
+				<label for="idProduit" >ID</label>
+				<input type="text" class="form-control" name="idProduit"
+					[(ngModel)]="produit.idProduit" readonly />
+			</div>
+
+			<div class="form-group">
+				<input type="text" class="form-control" name="desigProduit"  
+				placeholder="Entrer Désignation" #desigProduit="ngModel"
+					[(ngModel)]="produit.desigProduit" required maxlength="40"/>
+				<div [hidden]="!((produitForm.controls.desigProduit?.dirty 
+								|| produitForm.controls.desigProduit?.touched) 
+								&& produitForm.controls.desigProduit?.invalid)">
+					<small class="form-text text-danger"
+					[hidden]="!produitForm.controls.desigProduit?.errors?.required">
+					Le champs Désignation est obligatoire.
+					</small>
+					<small class="form-text text-danger"
+					[hidden]="!produitForm.controls.desigProduit?.errors?.maxlength">
+					Le champs Désignation ne doit pas dépasser 40 caractères.
+					</small>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<input type="number"  [(ngModel)]="produit.puProduit" class="form-control" name="puProduit"
+					placeholder="Entrer Prix Produit" required #puProduit="ngModel">
+					<div [hidden]="!((produitForm.controls.puProduit?.dirty 
+								|| produitForm.controls.puProduit?.touched) 
+								&& produitForm.controls.puProduit?.invalid)">
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.puProduit?.errors?.required">
+						Prix Unitaire est obligatoire.
+						</small>
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.puProduit?.errors?.number">
+						Prix Unitaire doit être numérique.
+						</small>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<input type="number" [(ngModel)]="produit.qteProduit" class="form-control" name="qteProduit"
+					placeholder="Entrer Qté Produit" required #qteProduit="ngModel">
+					<div [hidden]="!((produitForm.controls.qteProduit?.dirty 
+								|| produitForm.controls.qteProduit?.touched) 
+								&& produitForm.controls.qteProduit?.invalid)">
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.qteProduit?.errors?.required">
+						Qté est obligatoire.
+						</small>
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.qteProduit?.errors?.number">
+						Qté doit être numérique.
+						</small>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<input type="text" [(ngModel)]="produit.configProduit" class="form-control" name="configProduit"
+					placeholder="Entrer Configuration Produit" required #configProduit="ngModel" maxlength="50">
+					<div [hidden]="!((produitForm.controls.configProduit?.dirty 
+					|| produitForm.controls.configProduit?.touched) 
+					&& produitForm.controls.configProduit?.invalid)">
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.configProduit?.errors?.required">
+						Le champs configuration est obligatoire.
+						</small>
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.configProduit?.errors?.maxlength">
+						Le champs configuration ne doit pas dépasser 50 caractères.
+						</small>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<input type="text" [(ngModel)]="produit.marqueProduit" class="form-control" name="marqueProduit"
+					placeholder="Entrer Marque  Produit" required #marqueProduit="ngModel" maxlength="30">
+					<div [hidden]="!((produitForm.controls.marqueProduit?.dirty 
+					|| produitForm.controls.marqueProduit?.touched) 
+					&& produitForm.controls.marqueProduit?.invalid)">
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.marqueProduit?.errors?.required">
+						Le champs marque est obligatoire.
+						</small>
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.marqueProduit?.errors?.maxlength">
+						Le champs marque ne doit pas dépasser 30 caractères.
+						</small>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<input type="text" [(ngModel)]="produit.modeleProduit" class="form-control" name="modeleProduit"
+					placeholder="Entrer Modèle Produit" required #modeleProduit="ngModel" maxlength="20">
+					<div [hidden]="!((produitForm.controls.modeleProduit?.dirty 
+					|| produitForm.controls.modeleProduit?.touched) 
+					&& produitForm.controls.modeleProduit?.invalid)">
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.modeleProduit?.errors?.required">
+						Le champs modèle Produit est obligatoire.
+						</small>
+						<small class="form-text text-danger"
+						[hidden]="!produitForm.controls.modeleProduit?.errors?.maxlength">
+						Le champs modèle ne doit pas dépasser 20 caractères.
+						</small>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<select class="form-control" id="categorie" name="categorie" [(ngModel)]="produit.categorie" >
+					<option [ngValue]="null"></option>
+					<option [ngValue]="categorieOption.idCateg === produit.categorie?.idCateg ? produit.categorie : categorieOption" *ngFor="let categorieOption of listCategorie">
+						{{categorieOption.idCateg}}:
+						{{categorieOption.libelleCateg}}</option>
+				</select>
+			</div>
+
+			<div class="clearfix">
+				<input [disabled]="!produitForm.valid" class="btn btn-info" type="submit" value="Créer">
+				<input class="btn btn-secondary" type="reset" value="Effacer">
+			</div>
+
+		</form>
+	</div>
+</div>
