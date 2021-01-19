@@ -13,7 +13,7 @@ export class Categorieserviceservice {
 
     constructor(protected http: HttpClient) {
 
-        this.resourceUrl =  'https://moez-ameni.herokuapp.com/api/categories';
+        this.resourceUrl =  'https://moez-ameni-backend.herokuapp.com/api/categories';
     }
 
     create(categorie: Categorie) {

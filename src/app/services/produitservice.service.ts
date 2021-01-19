@@ -14,7 +14,7 @@ export class Produitserviceservice {
 
     constructor(protected http: HttpClient) {
 
-        this.resourceUrl =  'https://moez-ameni.herokuapp.com/api/produits';
+        this.resourceUrl =  'https://moez-ameni-backend.herokuapp.com/api/produits';
         
     }
 
