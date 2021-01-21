@@ -1,1 +1,128 @@
-<p>add-update-categorie works!</p>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form role="form" name="categorieForm" novalidate (ngSubmit)="saveOrUpdate()" #categorieForm="ngForm">
+      <div class="form-group" [hidden]="categorie.idCateg">
+        <h1>Nouvelle Categorie</h1>
+        <p>Veuillez saisir les données de la categorie</p>
+        <hr>
+      </div>
+      <div class="form-group" [hidden]="!categorie.idCateg">
+        <h1>Modifier Categorie</h1>
+        <p>Veuillez saisir les données de la categorie</p>
+        <hr>
+      </div>
+
+      <div class="form-group" [hidden]="!categorie.idCateg">
+        <label for="idCategorie">ID</label>
+        <input type="number" class="form-control" name="idCategorie" [(ngModel)]="categorie.idCateg" readonly />
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" name="libelleCategorie" placeholder="Entrer Libellé"
+          #libelleCateg="ngModel" [(ngModel)]="categorie.libelleCateg" required maxlength="40" />
+        <div [hidden]="!((categorieForm.controls.libelleCateg?.dirty 
+								|| categorieForm.controls.libelleCateg?.touched)
+								&& categorieForm.controls.libelleCateg?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.libelleCateg?.errors?.required">
+            Le champs Libelleé est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.libelleCateg?.errors?.maxlength">
+            Le champs Libelleé ne doit pas dépasser 40 caractères.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="number" [(ngModel)]="categorie.codeCateg" class="form-control" name="codeCateg"
+          placeholder="Entrer Code Categorie" required #codeCateg="ngModel">
+        <div [hidden]="!((categorieForm.controls.codeCateg?.dirty 
+								|| categorieForm.controls.codeCateg?.touched)
+								&& categorieForm.controls.codeCateg?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.codeCateg?.errors?.required">
+            Code Catégorie est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.codeCateg?.errors?.number">
+            Code Catégorie doit être numérique.
+          </small>
+        </div>
+      </div> 
+
+      <!-- <div class="form-group">
+        <input type="number" [(ngModel)]="produit.qteProduit" class="form-control" name="qteProduit"
+          placeholder="Entrer Qté Produit" required #qteProduit="ngModel">
+        <div [hidden]="!((categorieForm.controls.qteProduit?.dirty 
+								|| categorieForm.controls.qteProduit?.touched) 
+								&& categorieForm.controls.qteProduit?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.qteProduit?.errors?.required">
+            Qté est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.qteProduit?.errors?.number">
+            Qté doit être numérique.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="produit.configProduit" class="form-control" name="configProduit"
+          placeholder="Entrer Configuration Produit" required #configProduit="ngModel" maxlength="50">
+        <div [hidden]="!((categorieForm.controls.configProduit?.dirty 
+					|| categorieForm.controls.configProduit?.touched) 
+					&& categorieForm.controls.configProduit?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.configProduit?.errors?.required">
+            Le champs configuration est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.configProduit?.errors?.maxlength">
+            Le champs configuration ne doit pas dépasser 50 caractères.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="produit.marqueProduit" class="form-control" name="marqueProduit"
+          placeholder="Entrer Marque  Produit" required #marqueProduit="ngModel" maxlength="30">
+        <div [hidden]="!((categorieForm.controls.marqueProduit?.dirty 
+					|| categorieForm.controls.marqueProduit?.touched) 
+					&& categorieForm.controls.marqueProduit?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.marqueProduit?.errors?.required">
+            Le champs marque est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.marqueProduit?.errors?.maxlength">
+            Le champs marque ne doit pas dépasser 30 caractères.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="produit.modeleProduit" class="form-control" name="modeleProduit"
+          placeholder="Entrer Modèle Produit" required #modeleProduit="ngModel" maxlength="20">
+        <div [hidden]="!((categorieForm.controls.modeleProduit?.dirty 
+					|| categorieForm.controls.modeleProduit?.touched) 
+					&& categorieForm.controls.modeleProduit?.invalid)">
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.modeleProduit?.errors?.required">
+            Le champs modèle Produit est obligatoire.
+          </small>
+          <small class="form-text text-danger" [hidden]="!categorieForm.controls.modeleProduit?.errors?.maxlength">
+            Le champs modèle ne doit pas dépasser 20 caractères.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control" id="categorie" name="categorie" [(ngModel)]="produit.categorie">
+          <option [ngValue]="null"></option>
+          <option
+            [ngValue]="categorieOption.idCateg === produit.categorie?.idCateg ? produit.categorie : categorieOption"
+            *ngFor="let categorieOption of listCategorie">
+            {{categorieOption.idCateg}}:
+            {{categorieOption.libelleCateg}}</option>
+        </select>
+      </div> -->
+
+      <div class="clearfix">
+        <input [disabled]="!categorieForm.valid" class="btn btn-info" type="submit" value="Créer">
+        <input class="btn btn-secondary" type="reset" value="Effacer">
+      </div>
+
+    </form>
+  </div>
+</div>
