@@ -27,7 +27,7 @@ import { Produitserviceservice } from './services/produitservice.service';
 import { Observable, of } from 'rxjs';
 import { CategorieComponent } from './categorie/categorie.component';
 import { AddUpdateCategorieComponent } from './categorie/add-update-categorie/add-update-categorie.component';
-import { ShowAllCategorieComponent } from './categorie/show-all-categorie/show-all-categorie.component';
+import { ShowAllCategoriesComponent } from './categorie/show-all-categories/show-all-categories.component';
 
 @Injectable({ providedIn: 'root' })
 export class ProduitResolve implements Resolve<Produit> {
@@ -44,7 +44,9 @@ export class ProduitResolve implements Resolve<Produit> {
 
 const appRoutes: Routes = [
 
-  { path: '', component: HomeComponent },
+  { 
+    path: '',
+    component: HomeComponent },
   { 
     path: 'produit/new', 
     component: AddUpdateProduitComponent
@@ -76,8 +78,25 @@ const appRoutes: Routes = [
   
   },
 
-  { path: 'produit/all', component: ShowAllProduitsComponent },
-  { path: '**', component: NotfoundComponent }
+  { 
+    path: 'produit/all',
+    component: ShowAllProduitsComponent
+  },
+  
+  { 
+    path: '**',
+    component: NotfoundComponent
+  },
+
+  {
+    path: 'categorie/new',
+    component: AddUpdateCategorieComponent
+  },
+
+  {
+    path: 'categorie/all',
+    component: ShowAllCategoriesComponent
+  },
 
   ];
   
@@ -94,7 +113,7 @@ const appRoutes: Routes = [
     NotfoundComponent,
     CategorieComponent,
     AddUpdateCategorieComponent,
-    ShowAllCategorieComponent
+    ShowAllCategoriesComponent
   ],
   imports: [
     BrowserModule,
