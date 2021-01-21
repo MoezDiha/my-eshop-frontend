@@ -25,6 +25,9 @@ import { NotfoundComponent } from './home/notfound/notfound.component';
 import { Produit } from './model/produit';
 import { Produitserviceservice } from './services/produitservice.service';
 import { Observable, of } from 'rxjs';
+import { CategorieComponent } from './categorie/categorie.component';
+import { AddUpdateCategorieComponent } from './categorie/add-update-categorie/add-update-categorie.component';
+import { ShowAllCategorieComponent } from './categorie/show-all-categorie/show-all-categorie.component';
 
 @Injectable({ providedIn: 'root' })
 export class ProduitResolve implements Resolve<Produit> {
@@ -88,7 +91,10 @@ const appRoutes: Routes = [
     ProduitComponent,
     AddUpdateProduitComponent,
     ShowAllProduitsComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    CategorieComponent,
+    AddUpdateCategorieComponent,
+    ShowAllCategorieComponent
   ],
   imports: [
     BrowserModule,
