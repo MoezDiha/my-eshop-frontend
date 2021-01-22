@@ -28,6 +28,8 @@ import { Observable, of } from 'rxjs';
 import { CategorieComponent } from './categorie/categorie.component';
 import { AddUpdateCategorieComponent } from './categorie/add-update-categorie/add-update-categorie.component';
 import { ShowAllCategorieComponent } from './categorie/show-all-categorie/show-all-categorie.component';
+import { Categorie } from './model/categorie';
+import { Categorieserviceservice } from './services/categorieservice.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProduitResolve implements Resolve<Produit> {
@@ -40,6 +42,19 @@ export class ProduitResolve implements Resolve<Produit> {
         }
         return of(new Produit());
     }
+}
+
+@Injectable({providedIn: 'root'})
+export class CategorieResolve implements Resolve<Categorie> {
+  constructor(private categorieservice: Categorieserviceservice) {}
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Categorie | Observable<Categorie> | Promise<Categorie> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if(id) {
+      return this.categorieservice.findOne(id);
+    }
+
+    return of(new Categorie());
+  }
 }
 
 const appRoutes: Routes = [
@@ -82,11 +97,6 @@ const appRoutes: Routes = [
     path: 'produit/all',
     component: ShowAllProduitsComponent
   },
-  
-  { 
-    path: '**',
-    component: NotfoundComponent
-  },
 
   {
     path: 'categorie/new',
@@ -96,6 +106,11 @@ const appRoutes: Routes = [
   {
     path: 'categorie/all',
     component: ShowAllCategorieComponent
+  },
+  
+  { 
+    path: '**',
+    component: NotfoundComponent
   },
 
   ];

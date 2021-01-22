@@ -31,12 +31,12 @@
                             <a class="dropdown-item" [routerLink]="['produit/all']">Lister Tous</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown disabled">
-                        <a class="nav-link dropdown-toggle disabled" id="dropdown04" data-toggle="dropdown"
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Gestion Catégorie</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="#">Nouvelle Catégorie</a>
-                            <a class="dropdown-item" href="#">Lister Tous</a>
+                            <a class="dropdown-item" [routerLink]="['categorie/new']">Nouvelle Catégorie</a>
+                            <a class="dropdown-item" [routerLink]="['categorie/all']">Lister Tous</a>
                         </div>
                     </li>
                 </ul>
