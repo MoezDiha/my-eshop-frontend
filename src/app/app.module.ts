@@ -61,41 +61,43 @@ const appRoutes: Routes = [
 
   { 
     path: '',
-    component: HomeComponent },
+    component: HomeComponent
+  },
+
   { 
     path: 'produit/new', 
     component: AddUpdateProduitComponent
   },
+
+  {
+    path: 'produit/all',
+    component: ShowAllProduitsComponent
+  },
+
   { 
     path: 'produit/:id/view',
-    component: AddUpdateProduitComponent
-    ,
+    component: AddUpdateProduitComponent,
     resolve: {
         produit: ProduitResolve
     }   
-   },
+  },
+
   { 
     path: 'produit/:id/edit', 
-    component: AddUpdateProduitComponent
-    ,
+    component: AddUpdateProduitComponent,
     resolve: {
         produit: ProduitResolve
     }    
   
   },
+
   { 
     path: 'produit/:id/delete', 
-    component: AddUpdateProduitComponent
-    ,
+    component: AddUpdateProduitComponent,
     resolve: {
         produit: ProduitResolve
     }   
   
-  },
-
-  { 
-    path: 'produit/all',
-    component: ShowAllProduitsComponent
   },
 
   {
@@ -107,6 +109,33 @@ const appRoutes: Routes = [
     path: 'categorie/all',
     component: ShowAllCategorieComponent
   },
+
+  {
+    path: 'categorie/:id/view',
+    component: AddUpdateCategorieComponent,
+    resolve: {
+      produit: CategorieResolve
+    }
+  },
+
+  {
+    path: 'categorie/:id/edit',
+    component: AddUpdateCategorieComponent,
+    resolve: {
+      produit: CategorieResolve
+    }
+
+  },
+
+  {
+    path: 'categorie/:id/delete',
+    component: AddUpdateCategorieComponent,
+    resolve: {
+      produit: CategorieResolve
+    }
+
+  },
+
   
   { 
     path: '**',

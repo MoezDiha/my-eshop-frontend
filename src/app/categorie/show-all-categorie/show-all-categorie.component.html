@@ -1,1 +1,65 @@
-<p>show-all-categorie works!</p>
+<div id="id01" class="">
+
+  <div class="modal-content">
+    <div class="container">
+
+      <div>
+        <h2 id="page-heading">
+          <span>Liste des Catégoris</span>
+          <button class="btn btn-primary float-right " [routerLink]="['/categorie/new']">
+            <span>
+              Nouvelle Catégorie
+            </span>
+          </button>
+        </h2>
+
+        <br />
+        <div class="table-responsive" *ngIf="listCategories">
+          <table class="table table-striped">
+            <thead>
+              <tr [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th><span>ID</span> </th>
+                <th><span>Code</span> </th>
+                <th><span>Libellé</span> </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let categorie of listCategories">
+                <td><a [routerLink]="['/categorie', categorie.idCateg, 'view' ]">{{categorie.idCateg}}</a></td>
+                <td>{{categorie.codeCateg}}</td>
+                <td>{{categorie.libelleCateg}}</td>
+                <td>
+                </td>
+                <td class="text-right">
+                  <div class="btn-group flex-btn-group-container">
+                        <button type="submit" [routerLink]="['/categorie', categorie.idCateg, 'view' ]"
+                        class="btn btn-info btn-sm">
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+
+                        <button type="submit" [routerLink]="['/categorie', categorie.idCateg, 'edit']"
+                        class="btn btn-primary btn-sm">
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+
+                        <button type="submit"
+                        [routerLink]="['/', 'categorie', { outlets: { popup: categorie.idCateg + '/delete'} }]"
+                        class="btn btn-danger btn-sm">
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="listCategories && listCategories.length">
+          <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+              [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
